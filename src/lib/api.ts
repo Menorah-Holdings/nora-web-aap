@@ -4,8 +4,7 @@ const BASE_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
 // without needing React state or context.
 let _token: string | null = null;
 
-// Shared promise to prevent concurrent refresh races — if two 401s fire at
-// the same time, only one actual refresh request goes out.
+// Shared promise to prevent concurrent refresh races — if two 401s fire at the same time, only one actual refresh request goes out. 
 let _inflightRefresh: Promise<string | null> | null = null;
 
 export function setAccessToken(token: string | null) {
@@ -43,7 +42,7 @@ export async function apiFetch(path: string, init: RequestInit = {}): Promise<Re
 
   let res = await fetch(`${BASE_URL}${path}`, { ...init, headers, credentials: "include" });
 
-  // On 401 attempt one silent refresh then retry
+  
   if (res.status === 401) {
     const newToken = await silentRefresh();
     if (newToken) {
